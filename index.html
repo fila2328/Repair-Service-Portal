@@ -1,19 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Patient Services Portal</title>
-  <meta name="description" content="Collects office service selections, satisfaction ratings, and detailed feedback via forms, then emails responses to designated accounts for easy review." />
-  
+  <meta name="description"
+    content="Collects office service selections, satisfaction ratings, and detailed feedback via forms, then emails responses to designated accounts for easy review." />
+
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&display=swap" rel="stylesheet">
-  
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&display=swap"
+    rel="stylesheet">
+
   <!-- Vanilla CSS Styles -->
   <link rel="stylesheet" href="styles.css" />
 </head>
+
 <body>
 
   <!-- WELCOME SCREEN -->
@@ -30,12 +35,7 @@
         <form id="welcome-form">
           <div class="form-group">
             <label class="form-label" for="welcome-office-input">Office / Clinic Name</label>
-            <input
-              type="text"
-              id="welcome-office-input"
-              class="form-input"
-              placeholder="e.g. Sunrise Medical Center"
-            />
+            <input type="text" id="welcome-office-input" class="form-input" placeholder="e.g. Sunrise Medical Center" />
             <p id="welcome-error" class="error-text hidden">Please enter the office name to continue.</p>
           </div>
 
@@ -55,11 +55,11 @@
 
   <!-- MAIN PORTAL LAYOUT -->
   <div id="portal-layout" class="portal-layout hidden">
-    
+
     <!-- SIDEBAR -->
     <aside class="sidebar">
       <div class="accent-stripe"></div>
-      
+
       <div class="sidebar-header">
         <div class="sidebar-badge">Patient Services Portal</div>
         <div id="sidebar-office-name" class="sidebar-office-name">--</div>
@@ -82,7 +82,8 @@
         <button class="nav-item" data-tab="satisfaction">
           <span class="nav-icon">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+              <polygon
+                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
             </svg>
           </span>
           <div>
@@ -112,7 +113,7 @@
 
     <!-- MAIN WRAPPER -->
     <main class="main-wrapper">
-      
+
       <!-- TOP HEADER -->
       <header class="top-header">
         <div class="portal-active-info">
@@ -127,7 +128,8 @@
           <div class="view-header">
             <div class="view-step">Step 1 of 1</div>
             <h2 class="view-title">Book an Appointment</h2>
-            <p class="view-subtitle">Select the services you need and your preferred timing. We will confirm your visit details via email.</p>
+            <p class="view-subtitle">Select the services you need and your preferred timing. We will confirm your visit
+              details via email.</p>
           </div>
 
           <form id="appointment-form">
@@ -159,7 +161,8 @@
 
             <div class="form-group">
               <label class="form-label" for="apt-notes">Additional Notes</label>
-              <textarea id="apt-notes" rows="3" class="form-textarea" placeholder="Any symptoms, concerns, or special requests…"></textarea>
+              <textarea id="apt-notes" rows="3" class="form-textarea"
+                placeholder="Any symptoms, concerns, or special requests…"></textarea>
             </div>
 
             <button type="submit" id="btn-submit-appointment" class="btn-primary" disabled>
@@ -214,7 +217,8 @@
           <div class="view-header">
             <div class="view-step">Open Feedback</div>
             <h2 class="view-title">Share Your Thoughts</h2>
-            <p class="view-subtitle">Answer as many questions as you'd like. Your feedback goes directly to the office team.</p>
+            <p class="view-subtitle">Answer as many questions as you'd like. Your feedback goes directly to the office
+              team.</p>
           </div>
 
           <form id="feedback-form">
@@ -222,7 +226,8 @@
               <label class="form-label" for="fb-author-name">
                 Your Name <span class="form-label-optional">(optional)</span>
               </label>
-              <input type="text" id="fb-author-name" class="form-input" placeholder="Leave blank to submit anonymously" />
+              <input type="text" id="fb-author-name" class="form-input"
+                placeholder="Leave blank to submit anonymously" />
             </div>
 
             <div id="feedback-questions-container">
@@ -243,7 +248,7 @@
   <!-- ADMIN DRAWER MODAL -->
   <div id="admin-drawer-modal" class="modal-overlay hidden">
     <div class="drawer-panel">
-      
+
       <div class="drawer-header">
         <div>
           <div class="drawer-subtitle">Admin & Local Data Inspector</div>
@@ -270,7 +275,8 @@
 
       <div class="drawer-footer">
         <button id="btn-clear-local-data" class="btn-clear-data">Clear Local Data</button>
-        <button onclick="document.getElementById('admin-drawer-modal').classList.add('hidden')" class="btn-primary" style="width:auto; padding:0.5rem 1.25rem;">
+        <button onclick="document.getElementById('admin-drawer-modal').classList.add('hidden')" class="btn-primary"
+          style="width:auto; padding:0.5rem 1.25rem;">
           Close
         </button>
       </div>
@@ -284,4 +290,5 @@
   <!-- Vanilla JS Engine -->
   <script src="app.js"></script>
 </body>
+
 </html>
