@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Patient Services Portal</title>
+  <meta name="description" content="Collects office service selections, satisfaction ratings, and detailed feedback via forms, then emails responses to designated accounts for easy review." />
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&display=swap" rel="stylesheet">
+  
+  <!-- Vanilla CSS Styles -->
+  <script type="module" crossorigin src="./assets/index-DXu9PgOa.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-xE0O7Ruf.css">
+</head>
+<body>
+
+  <!-- WELCOME SCREEN -->
+  <div id="welcome-screen" class="welcome-screen">
+    <div class="accent-stripe"></div>
+    <div class="welcome-content">
+      <div class="welcome-card">
+        <div class="welcome-badge">Patient Services Portal</div>
+        <h1 class="welcome-title">Welcome.</h1>
+        <p class="welcome-desc">
+          This portal lets you book appointments, rate your visit, and share feedback — all in one place.
+        </p>
+
+        <form id="welcome-form">
+          <div class="form-group">
+            <label class="form-label" for="welcome-office-input">Office / Clinic Name</label>
+            <input
+              type="text"
+              id="welcome-office-input"
+              class="form-input"
+              placeholder="e.g. Sunrise Medical Center"
+            />
+            <p id="welcome-error" class="error-text hidden">Please enter the office name to continue.</p>
+          </div>
+
+          <button type="submit" class="btn-primary">
+            Continue to Portal &rarr;
+          </button>
+        </form>
+
+        <div class="welcome-footer">
+          <div class="footer-line"></div>
+          <span class="footer-text">Confidential</span>
+          <div class="footer-line"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN PORTAL LAYOUT -->
+  <div id="portal-layout" class="portal-layout hidden">
+    
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="accent-stripe"></div>
+      
+      <div class="sidebar-header">
+        <div class="sidebar-badge">Patient Services Portal</div>
+        <div id="sidebar-office-name" class="sidebar-office-name">--</div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <button class="nav-item active" data-tab="appointment">
+          <span class="nav-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <rect x="3" y="4" width="18" height="18" rx="2" />
+              <path d="M16 2v4M8 2v4M3 10h18" />
+            </svg>
+          </span>
+          <div>
+            <div class="nav-label">Appointment</div>
+            <div class="nav-sub">Book a service</div>
+          </div>
+        </button>
+
+        <button class="nav-item" data-tab="satisfaction">
+          <span class="nav-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+            </svg>
+          </span>
+          <div>
+            <div class="nav-label">Satisfaction</div>
+            <div class="nav-sub">Rate your visit</div>
+          </div>
+        </button>
+
+        <button class="nav-item" data-tab="feedback">
+          <span class="nav-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+            </svg>
+          </span>
+          <div>
+            <div class="nav-label">Feedback</div>
+            <div class="nav-sub">Share thoughts</div>
+          </div>
+        </button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <p class="sidebar-footer-text">Responses are sent securely to the office administrator.</p>
+        <button id="btn-open-admin" class="btn-admin-drawer">📊 View Local Submissions</button>
+      </div>
+    </aside>
+
+    <!-- MAIN WRAPPER -->
+    <main class="main-wrapper">
+      
+      <!-- TOP HEADER -->
+      <header class="top-header">
+        <div class="portal-active-info">
+          Portal active for: <strong id="header-office-name">--</strong>
+        </div>
+        <button id="btn-change-office" class="btn-change-office">Change Office</button>
+      </header>
+
+      <!-- VIEW 1: APPOINTMENT -->
+      <section id="view-appointment" class="view-container">
+        <div class="view-content">
+          <div class="view-header">
+            <div class="view-step">Step 1 of 1</div>
+            <h2 class="view-title">Book an Appointment</h2>
+            <p class="view-subtitle">Select the services you need and your preferred timing. We will confirm your visit details via email.</p>
+          </div>
+
+          <form id="appointment-form">
+            <div class="form-group">
+              <label class="form-label" for="apt-patient-name">Your Name</label>
+              <input type="text" id="apt-patient-name" class="form-input" placeholder="Full name" />
+            </div>
+
+            <div class="form-group grid-2">
+              <div>
+                <label class="form-label" for="apt-pref-date">Preferred Date</label>
+                <input type="date" id="apt-pref-date" class="form-input" />
+              </div>
+              <div>
+                <label class="form-label" for="apt-pref-time">Preferred Time</label>
+                <input type="time" id="apt-pref-time" class="form-input" />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">
+                Select Services <span style="color:var(--color-teal);">*</span>
+              </label>
+              <div id="services-grid" class="services-grid">
+                <!-- Injected via app.js -->
+              </div>
+              <div id="services-counter" class="selection-count"></div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="apt-notes">Additional Notes</label>
+              <textarea id="apt-notes" rows="3" class="form-textarea" placeholder="Any symptoms, concerns, or special requests…"></textarea>
+            </div>
+
+            <button type="submit" id="btn-submit-appointment" class="btn-primary" disabled>
+              Send Appointment Request &rarr;
+            </button>
+          </form>
+        </div>
+      </section>
+
+      <!-- VIEW 2: SATISFACTION SURVEY -->
+      <section id="view-satisfaction" class="view-container hidden">
+        <div class="view-content">
+          <div class="view-header">
+            <div class="view-step">Patient Feedback</div>
+            <h2 class="view-title">Rate Your Visit</h2>
+            <p class="view-subtitle">Your ratings help us maintain high standards. Select a level for each aspect.</p>
+          </div>
+
+          <form id="satisfaction-form">
+            <div class="form-group">
+              <label class="form-label" for="sat-visit-date">Date of Visit</label>
+              <input type="date" id="sat-visit-date" class="form-input" />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">
+                Satisfaction Levels <span style="color:var(--color-teal);">*</span>
+              </label>
+              <div id="satisfaction-ratings-container">
+                <!-- Injected via app.js -->
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Would you recommend us to others?</label>
+              <div id="recommend-options-container" class="radio-options-row">
+                <!-- Injected via app.js -->
+              </div>
+            </div>
+
+            <button type="submit" id="btn-submit-satisfaction" class="btn-primary" disabled>
+              Submit Satisfaction Survey &rarr;
+            </button>
+            <p class="form-hint">Please rate all aspects before submitting.</p>
+          </form>
+        </div>
+      </section>
+
+      <!-- VIEW 3: OPEN FEEDBACK -->
+      <section id="view-feedback" class="view-container hidden">
+        <div class="view-content">
+          <div class="view-header">
+            <div class="view-step">Open Feedback</div>
+            <h2 class="view-title">Share Your Thoughts</h2>
+            <p class="view-subtitle">Answer as many questions as you'd like. Your feedback goes directly to the office team.</p>
+          </div>
+
+          <form id="feedback-form">
+            <div class="form-group">
+              <label class="form-label" for="fb-author-name">
+                Your Name <span class="form-label-optional">(optional)</span>
+              </label>
+              <input type="text" id="fb-author-name" class="form-input" placeholder="Leave blank to submit anonymously" />
+            </div>
+
+            <div id="feedback-questions-container">
+              <!-- Injected via app.js -->
+            </div>
+
+            <button type="submit" id="btn-submit-feedback" class="btn-primary btn-teal" disabled>
+              Send Feedback &rarr;
+            </button>
+            <p class="form-hint">Please answer at least one question before submitting.</p>
+          </form>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ADMIN DRAWER MODAL -->
+  <div id="admin-drawer-modal" class="modal-overlay hidden">
+    <div class="drawer-panel">
+      
+      <div class="drawer-header">
+        <div>
+          <div class="drawer-subtitle">Admin & Local Data Inspector</div>
+          <h3 class="drawer-title">Submitted Portal Responses</h3>
+        </div>
+        <button id="btn-close-admin" class="btn-close-drawer">&times;</button>
+      </div>
+
+      <div class="drawer-tabs">
+        <button class="drawer-tab-btn active" data-admintab="appointments">
+          Appointments (<span id="count-appointments">0</span>)
+        </button>
+        <button class="drawer-tab-btn" data-admintab="satisfactions">
+          Surveys (<span id="count-satisfactions">0</span>)
+        </button>
+        <button class="drawer-tab-btn" data-admintab="feedbacks">
+          Feedback (<span id="count-feedbacks">0</span>)
+        </button>
+      </div>
+
+      <div id="admin-drawer-body" class="drawer-body">
+        <!-- Injected via app.js -->
+      </div>
+
+      <div class="drawer-footer">
+        <button id="btn-clear-local-data" class="btn-clear-data">Clear Local Data</button>
+        <button onclick="document.getElementById('admin-drawer-modal').classList.add('hidden')" class="btn-primary" style="width:auto; padding:0.5rem 1.25rem;">
+          Close
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- TOAST CONTAINER -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- Vanilla JS Engine -->
+</body>
+</html>
