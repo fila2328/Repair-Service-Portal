@@ -6,7 +6,8 @@
   'use strict';
 
   // Constants & Data Sets
-  const DEFAULT_EMAIL = 'office@example.com';
+
+  const DEFAULT_EMAIL = 'filimonatsibeha28@gmail.com';
 
   const SERVICES_LIST = [
     'General Consultation',
