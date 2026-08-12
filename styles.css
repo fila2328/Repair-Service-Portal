@@ -891,3 +891,9 @@ button {
     padding: 1.5rem 1rem;
   }
 }
+
+/* Email Error Toast */
+.toast-error {
+  background: #c53030 !important;
+  border-color: #9b2c2c !important;
+}

@@ -5,9 +5,25 @@
 (function () {
   'use strict';
 
-  // Constants & Data Sets
+  // ─── EmailJS Configuration ────────────────────────────────────────────────
+  // After setting up your EmailJS account, replace the placeholder strings below
+  // with your real credentials from https://dashboard.emailjs.com
+  const EMAILJS_PUBLIC_KEY      = 'Pz4WIAaWgZ5uEcMe7';      // Account → API Keys
+  const EMAILJS_SERVICE_ID      = 'service_p547tjf';        // Email Services tab
+  const EMAILJS_TEMPLATE_APT    = 'template_gsl3dpd';       // Appointment template
+  const EMAILJS_TEMPLATE_SAT    = 'template_4ggkjb3';       // Satisfaction template
+  const EMAILJS_TEMPLATE_FB     = 'template_4ggkjb3';       // Feedback template (shared)
+  const RECIPIENT_EMAIL         = 'filimonatsibeha28@gmail.com';
+  // ─────────────────────────────────────────────────────────────────────────
 
-  const DEFAULT_EMAIL = 'filimonatsibeha28@gmail.com';
+  // Initialise EmailJS (called once at startup)
+  function initEmailJS() {
+    if (typeof emailjs !== 'undefined') {
+      emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+    }
+  }
+
+  // Constants & Data Sets
 
   const SERVICES_LIST = [
     'General Consultation',
@@ -90,7 +106,7 @@
     localStorage.setItem('psp_feedbacks', JSON.stringify(state.feedbacks));
   }
 
-  function showToast(message) {
+  function showToast(message, isError) {
     const toastContainer = document.getElementById('toast-container');
     if (!toastContainer) return;
 
@@ -98,10 +114,14 @@
       clearTimeout(state.toastTimer);
     }
 
+    const iconPath = isError
+      ? '<path d="M18 6L6 18M6 6l12 12"/>'
+      : '<path d="M20 6L9 17l-5-5"/>';
+
     toastContainer.innerHTML = `
-      <div class="toast">
+      <div class="toast${isError ? ' toast-error' : ''}">
         <svg class="toast-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-          <path d="M20 6L9 17l-5-5"/>
+          ${iconPath}
         </svg>
         <span>${escapeHtml(message)}</span>
       </div>
@@ -110,7 +130,20 @@
     state.toastTimer = setTimeout(() => {
       toastContainer.innerHTML = '';
       state.toastTimer = null;
-    }, 4000);
+    }, 5000);
+  }
+
+  // Set a submit button into loading / restored state
+  function setButtonLoading(btn, loading) {
+    if (!btn) return;
+    if (loading) {
+      btn.dataset.originalText = btn.innerHTML;
+      btn.innerHTML = 'Sending\u2026';
+      btn.disabled = true;
+    } else {
+      btn.innerHTML = btn.dataset.originalText || btn.innerHTML;
+      btn.disabled = false;
+    }
   }
 
   function escapeHtml(str) {
@@ -128,6 +161,7 @@
   });
 
   function initApp() {
+    initEmailJS();
     renderMainView();
     bindWelcomeEvents();
     bindNavEvents();
@@ -289,21 +323,32 @@
         state.appointments.unshift(submission);
         saveStorage();
 
-        // Open Mailto
-        const emailBody = [
-          `Office: ${state.officeName}`,
-          `Patient Name: ${submission.patientName}`,
-          `Preferred Date: ${submission.preferredDate}`,
-          `Preferred Time: ${submission.preferredTime}`,
-          `Selected Services:\n${state.selectedServices.map((s) => `  - ${s}`).join('\n')}`,
-          `Additional Notes: ${submission.additionalNotes}`
-        ].join('\n\n');
+        // Send via EmailJS
+        setButtonLoading(submitBtn, true);
 
-        const subject = encodeURIComponent(`Appointment Request — ${state.officeName}`);
-        const body = encodeURIComponent(emailBody);
-        window.location.href = `mailto:${DEFAULT_EMAIL}?subject=${subject}&body=${body}`;
+        const aptTemplateParams = {
+          to_email:          RECIPIENT_EMAIL,
+          office_name:       state.officeName,
+          patient_name:      submission.patientName,
+          preferred_date:    submission.preferredDate,
+          preferred_time:    submission.preferredTime,
+          selected_services: state.selectedServices.join(', '),
+          additional_notes:  submission.additionalNotes,
+          submitted_at:      new Date().toLocaleString()
+        };
 
-        showToast('Appointment request opened in your email client.');
+        emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_APT, aptTemplateParams)
+          .then(() => {
+            showToast('✅ Appointment request sent successfully!');
+          })
+          .catch((err) => {
+            console.error('EmailJS appointment error:', err);
+            showToast('❌ Failed to send — please check your EmailJS config.', true);
+          })
+          .finally(() => {
+            setButtonLoading(submitBtn, false);
+            submitBtn.disabled = true;
+          });
 
         // Reset Form
         form.reset();
@@ -315,7 +360,6 @@
           });
         }
         if (counterText) counterText.textContent = '';
-        if (submitBtn) submitBtn.disabled = true;
       });
     }
   }
@@ -416,24 +460,41 @@
         state.satisfactions.unshift(submission);
         saveStorage();
 
-        // Format Mailto
+        // Format ratings for email
         const formattedRatings = RATING_CATEGORIES.map((cat) => {
           const opt = RATING_OPTIONS.find((o) => o.value === state.ratings[cat.id]);
-          return `  ${cat.label}: ${opt ? opt.label : ''} (${state.ratings[cat.id]}/5)`;
-        }).join('\n');
+          return `${cat.label}: ${opt ? opt.label : ''} (${state.ratings[cat.id]}/5)`;
+        }).join(' | ');
 
-        const emailBody = [
-          `Office: ${state.officeName}`,
-          `Visit Date: ${submission.visitDate}`,
-          `Satisfaction Ratings:\n${formattedRatings}`,
-          `Would Recommend: ${submission.wouldRecommend}`
-        ].join('\n\n');
+        // Send via EmailJS
+        setButtonLoading(submitBtn, true);
 
-        const subject = encodeURIComponent(`Satisfaction Survey — ${state.officeName}`);
-        const body = encodeURIComponent(emailBody);
-        window.location.href = `mailto:${DEFAULT_EMAIL}?subject=${subject}&body=${body}`;
+        const satTemplateParams = {
+          to_email:         RECIPIENT_EMAIL,
+          office_name:      state.officeName,
+          visit_date:       submission.visitDate,
+          ratings_summary:  formattedRatings,
+          overall_rating:   state.ratings['overall'] || 'N/A',
+          staff_rating:     state.ratings['staff']   || 'N/A',
+          wait_rating:      state.ratings['wait']    || 'N/A',
+          clean_rating:     state.ratings['cleanliness'] || 'N/A',
+          comm_rating:      state.ratings['communication'] || 'N/A',
+          would_recommend:  submission.wouldRecommend,
+          submitted_at:     new Date().toLocaleString()
+        };
 
-        showToast('Satisfaction survey opened in your email client.');
+        emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_SAT, satTemplateParams)
+          .then(() => {
+            showToast('✅ Satisfaction survey sent successfully!');
+          })
+          .catch((err) => {
+            console.error('EmailJS satisfaction error:', err);
+            showToast('❌ Failed to send — please check your EmailJS config.', true);
+          })
+          .finally(() => {
+            setButtonLoading(submitBtn, false);
+            submitBtn.disabled = true;
+          });
 
         // Reset
         form.reset();
@@ -447,7 +508,6 @@
           c.classList.remove('selected');
           c.querySelector('.dot-inner').classList.add('hidden');
         });
-        if (submitBtn) submitBtn.disabled = true;
       });
     }
   }
@@ -513,28 +573,42 @@
         state.feedbacks.unshift(submission);
         saveStorage();
 
-        // Format Mailto
+        // Format Q&A for email
         const formattedQA = FEEDBACK_QUESTIONS.map(
           (q) => `Q: ${q.label}\nA: ${answers[q.id] || 'No answer provided'}`
         ).join('\n\n');
 
-        const emailBody = [
-          `Office: ${state.officeName}`,
-          `Submitted by: ${submission.authorName}`,
-          '---',
-          formattedQA
-        ].join('\n\n');
+        // Send via EmailJS
+        setButtonLoading(submitBtn, true);
 
-        const subject = encodeURIComponent(`Patient Feedback — ${state.officeName}`);
-        const body = encodeURIComponent(emailBody);
-        window.location.href = `mailto:${DEFAULT_EMAIL}?subject=${subject}&body=${body}`;
+        const fbTemplateParams = {
+          to_email:     RECIPIENT_EMAIL,
+          office_name:  state.officeName,
+          author_name:  submission.authorName,
+          answer_q1:    answers['q1'] || 'No answer provided',
+          answer_q2:    answers['q2'] || 'No answer provided',
+          answer_q3:    answers['q3'] || 'No answer provided',
+          answer_q4:    answers['q4'] || 'No answer provided',
+          full_qa:      formattedQA,
+          submitted_at: new Date().toLocaleString()
+        };
 
-        showToast('Feedback opened in your email client.');
+        emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_FB, fbTemplateParams)
+          .then(() => {
+            showToast('✅ Feedback sent successfully!');
+          })
+          .catch((err) => {
+            console.error('EmailJS feedback error:', err);
+            showToast('❌ Failed to send — please check your EmailJS config.', true);
+          })
+          .finally(() => {
+            setButtonLoading(submitBtn, false);
+            submitBtn.disabled = true;
+          });
 
         // Reset
         form.reset();
         textareas.forEach((ta) => (ta.value = ''));
-        if (submitBtn) submitBtn.disabled = true;
       });
     }
   }
