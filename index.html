@@ -117,7 +117,7 @@
       <!-- TOP HEADER -->
       <header class="top-header">
         <div class="portal-active-info">
-          Portal active for: <strong id="header-office-name">--</strong>
+          ገጹ ላይ ነዎት <strong id="header-office-name">--</strong>
         </div>
         <button id="btn-change-office" class="btn-change-office">ቢሮውን ይቀይሩ</button>
       </header>
@@ -151,7 +151,7 @@
 
             <div class="form-group">
               <label class="form-label">
-                Select Services <span style="color:var(--color-teal);">*</span>
+                አገልግሎት ይምረጡ <span style="color:var(--color-teal);">*</span>
               </label>
               <div id="services-grid" class="services-grid">
                 <!-- Injected via app.js -->
@@ -215,19 +215,17 @@
       <section id="view-feedback" class="view-container hidden">
         <div class="view-content">
           <div class="view-header">
-            <div class="view-step">Open Feedback</div>
-            <h2 class="view-title">Share Your Thoughts</h2>
-            <p class="view-subtitle">Answer as many questions as you'd like. Your feedback goes directly to the office
-              team.</p>
+            <div class="view-step">3</div>
+            <h2 class="view-title">ሃሳብዎን ያካፍሉ</h2>
+            <p class="view-subtitle">የተለያዩ ወይም የተወሰኑ ጥያቄዎችን ብቻ መመለስ ይችላሉ። አስተያየትዎ በቀጥታ ለቢሮው ይደርሳል።</p>
           </div>
 
           <form id="feedback-form">
             <div class="form-group">
               <label class="form-label" for="fb-author-name">
-                Your Name <span class="form-label-optional">(optional)</span>
+                ስምዎ<span class="form-label-optional">(አማራጭ)</span>
               </label>
-              <input type="text" id="fb-author-name" class="form-input"
-                placeholder="Leave blank to submit anonymously" />
+              <input type="text" id="fb-author-name" class="form-input" placeholder="ስምዎን ማስገባት አማራጭ ነው" />
             </div>
 
             <div id="feedback-questions-container">
@@ -235,9 +233,9 @@
             </div>
 
             <button type="submit" id="btn-submit-feedback" class="btn-primary btn-teal" disabled>
-              Send Feedback &rarr;
+              ሃሳቦን ለመላክ
             </button>
-            <p class="form-hint">Please answer at least one question before submitting.</p>
+            <p class="form-hint">እባክዎን ቢያንስ አንድ ጥያቄ መመለስዎን ያረጋግጡ።</p>
           </form>
         </div>
       </section>
@@ -251,8 +249,8 @@
 
       <div class="drawer-header">
         <div>
-          <div class="drawer-subtitle">Admin & Local Data Inspector</div>
-          <h3 class="drawer-title">Submitted Portal Responses</h3>
+          <div class="drawer-subtitle">የአስተዳደር እና የአካባቢ መረጃ ተቆጣጣሪ</div>
+          <h3 class="drawer-title">የቀረቡ የጥያቄዎቹ ምላሾች</h3>
         </div>
         <button id="btn-close-admin" class="btn-close-drawer">&times;</button>
       </div>
@@ -274,7 +272,7 @@
       </div>
 
       <div class="drawer-footer">
-        <button id="btn-clear-local-data" class="btn-clear-data">Clear Local Data</button>
+        <button id="btn-clear-local-data" class="btn-clear-data">የአካባቢ መዝገብ ማጽጃ</button>
         <button onclick="document.getElementById('admin-drawer-modal').classList.add('hidden')" class="btn-primary"
           style="width:auto; padding:0.5rem 1.25rem;">
           Close

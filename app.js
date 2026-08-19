@@ -8,12 +8,12 @@
   // ─── EmailJS Configuration ────────────────────────────────────────────────
   // After setting up your EmailJS account, replace the placeholder strings below
   // with your real credentials from https://dashboard.emailjs.com
-  const EMAILJS_PUBLIC_KEY      = 'Pz4WIAaWgZ5uEcMe7';      // Account → API Keys
-  const EMAILJS_SERVICE_ID      = 'service_p547tjf';        // Email Services tab
-  const EMAILJS_TEMPLATE_APT    = 'template_gsl3dpd';       // Appointment template
-  const EMAILJS_TEMPLATE_SAT    = 'template_4ggkjb3';       // Satisfaction template
-  const EMAILJS_TEMPLATE_FB     = 'template_4ggkjb3';       // Feedback template (shared)
-  const RECIPIENT_EMAIL         = 'filimonatsibeha28@gmail.com';
+  const EMAILJS_PUBLIC_KEY = 'Pz4WIAaWgZ5uEcMe7';      // Account → API Keys
+  const EMAILJS_SERVICE_ID = 'service_p547tjf';        // Email Services tab
+  const EMAILJS_TEMPLATE_APT = 'template_gsl3dpd';       // Appointment template
+  const EMAILJS_TEMPLATE_SAT = 'template_4ggkjb3';       // Satisfaction template
+  const EMAILJS_TEMPLATE_FB = 'template_4ggkjb3';       // Feedback template (shared)
+  const RECIPIENT_EMAIL = 'filimonatsibeha28@gmail.com';
   // ─────────────────────────────────────────────────────────────────────────
 
   // Initialise EmailJS (called once at startup)
@@ -26,56 +26,53 @@
   // Constants & Data Sets
 
   const SERVICES_LIST = [
-    'General Consultation',
-    'Annual Health Check-up',
-    'Laboratory Tests',
-    'X-Ray / Imaging',
-    'Specialist Referral',
-    'Prescription Renewal',
-    'Vaccination',
-    'Mental Health Counseling',
-    'Physical Therapy',
-    'Dental Check-up'
+    'ሙሉ ኮምፒውተር',
+    'ሶፍትዌር',
+    'ሀርድዌር',
+    'ቀላል ኔትዎርክ',
+    'ከባድ ኔትዎርክ',
+    'የፕሪንተር ሀርድዌር',
+    'የፕሪንተር ሶፍትዌር'
   ];
 
   const RATING_CATEGORIES = [
-    { id: 'overall', label: 'Overall Visit Experience' },
-    { id: 'staff', label: 'Staff Friendliness & Professionalism' },
-    { id: 'wait', label: 'Waiting Time' },
-    { id: 'cleanliness', label: 'Cleanliness & Environment' },
-    { id: 'communication', label: 'Communication & Clarity' }
+    { id: 'overall', label: 'ጠቅላላ አገልግሎት እንዴት ነበር' },
+    { id: 'staff', label: 'የባለሙያ ባህሪ እና አሰራር' },
+    { id: 'wait', label: 'ሰአት አከባበር' },
+    { id: 'cleanliness', label: 'የስራ ጥራት' },
+    { id: 'communication', label: 'የባለሙያው ስነ ምግባር' }
   ];
 
   const RATING_OPTIONS = [
-    { value: '5', label: 'Excellent' },
-    { value: '4', label: 'Good' },
-    { value: '3', label: 'Average' },
-    { value: '2', label: 'Poor' },
-    { value: '1', label: 'Very Poor' }
+    { value: '5', label: 'በጣም ጥሩ' },
+    { value: '4', label: 'ጥሩ' },
+    { value: '3', label: 'መካከለኛ' },
+    { value: '2', label: 'ደካማ' },
+    { value: '1', label: 'በጣም ደካማ' }
   ];
 
-  const RECOMMEND_OPTIONS = ['Yes, definitely', 'Maybe', 'No'];
+  const RECOMMEND_OPTIONS = ['አዎ, አዎ በርገጠኝነት', 'ምናልባት', 'አይ በፍጹም'];
 
   const FEEDBACK_QUESTIONS = [
     {
       id: 'q1',
-      label: 'How would you describe your overall experience at our office?',
-      placeholder: 'Share what stood out — positive or negative…'
+      label: 'የሰራሎት ባለሙያ ስም',
+      placeholder: 'ስም ብቻ'
     },
     {
       id: 'q2',
-      label: 'How did our staff treat you? Were they helpful and respectful?',
-      placeholder: 'Tell us about your interaction with our team…'
+      label: 'በአገልግሎት በተሰጦት አስተያየት በጥንካሬ',
+      placeholder: 'በአገልግሎት በተሰጦት አስተያየት በጥንካሬ'
     },
     {
       id: 'q3',
-      label: 'Was the waiting time acceptable? If not, what could be improved?',
-      placeholder: 'Describe your wait experience and any suggestions…'
+      label: 'በአገልግሎት በተሰጦት አስተያየት በድክመት',
+      placeholder: 'በአገልግሎት በተሰጦት አስተያየት በድክመት'
     },
     {
       id: 'q4',
-      label: 'Is there anything specific you would like us to improve or add?',
-      placeholder: 'Your suggestions help us serve you better…'
+      label: 'በአገልግሎት በተሰጦት በቀጣይ መስተካከል ያለበት',
+      placeholder: 'በአገልግሎት በተሰጦት በቀጣይ መስተካከል ያለበት'
     }
   ];
 
@@ -327,14 +324,14 @@
         setButtonLoading(submitBtn, true);
 
         const aptTemplateParams = {
-          to_email:          RECIPIENT_EMAIL,
-          office_name:       state.officeName,
-          patient_name:      submission.patientName,
-          preferred_date:    submission.preferredDate,
-          preferred_time:    submission.preferredTime,
+          to_email: RECIPIENT_EMAIL,
+          office_name: state.officeName,
+          patient_name: submission.patientName,
+          preferred_date: submission.preferredDate,
+          preferred_time: submission.preferredTime,
           selected_services: state.selectedServices.join(', '),
-          additional_notes:  submission.additionalNotes,
-          submitted_at:      new Date().toLocaleString()
+          additional_notes: submission.additionalNotes,
+          submitted_at: new Date().toLocaleString()
         };
 
         emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_APT, aptTemplateParams)
@@ -470,23 +467,23 @@
         setButtonLoading(submitBtn, true);
 
         const satTemplateParams = {
-          to_email:         RECIPIENT_EMAIL,
-          office_name:      state.officeName,
-          visit_date:       submission.visitDate,
-          ratings_summary:  formattedRatings,
-          overall_rating:   state.ratings['overall']       || 'N/A',
-          staff_rating:     state.ratings['staff']         || 'N/A',
-          wait_rating:      state.ratings['wait']          || 'N/A',
-          clean_rating:     state.ratings['cleanliness']   || 'N/A',
-          comm_rating:      state.ratings['communication'] || 'N/A',
-          would_recommend:  submission.wouldRecommend,
+          to_email: RECIPIENT_EMAIL,
+          office_name: state.officeName,
+          visit_date: submission.visitDate,
+          ratings_summary: formattedRatings,
+          overall_rating: state.ratings['overall'] || 'N/A',
+          staff_rating: state.ratings['staff'] || 'N/A',
+          wait_rating: state.ratings['wait'] || 'N/A',
+          clean_rating: state.ratings['cleanliness'] || 'N/A',
+          comm_rating: state.ratings['communication'] || 'N/A',
+          would_recommend: submission.wouldRecommend,
           // Feedback fields not applicable for satisfaction survey
-          author_name:      'N/A',
-          answer_q1:        'N/A',
-          answer_q2:        'N/A',
-          answer_q3:        'N/A',
-          answer_q4:        'N/A',
-          submitted_at:     new Date().toLocaleString()
+          author_name: 'N/A',
+          answer_q1: 'N/A',
+          answer_q2: 'N/A',
+          answer_q3: 'N/A',
+          answer_q4: 'N/A',
+          submitted_at: new Date().toLocaleString()
         };
 
         emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_SAT, satTemplateParams)
@@ -588,24 +585,24 @@
         setButtonLoading(submitBtn, true);
 
         const fbTemplateParams = {
-          to_email:        RECIPIENT_EMAIL,
-          office_name:     state.officeName,
-          author_name:     submission.authorName,
-          answer_q1:       answers['q1'] || 'No answer provided',
-          answer_q2:       answers['q2'] || 'No answer provided',
-          answer_q3:       answers['q3'] || 'No answer provided',
-          answer_q4:       answers['q4'] || 'No answer provided',
-          full_qa:         formattedQA,
+          to_email: RECIPIENT_EMAIL,
+          office_name: state.officeName,
+          author_name: submission.authorName,
+          answer_q1: answers['q1'] || 'No answer provided',
+          answer_q2: answers['q2'] || 'No answer provided',
+          answer_q3: answers['q3'] || 'No answer provided',
+          answer_q4: answers['q4'] || 'No answer provided',
+          full_qa: formattedQA,
           // Satisfaction fields not applicable for feedback
-          visit_date:      'N/A',
-          overall_rating:  'N/A',
-          staff_rating:    'N/A',
-          wait_rating:     'N/A',
-          clean_rating:    'N/A',
-          comm_rating:     'N/A',
+          visit_date: 'N/A',
+          overall_rating: 'N/A',
+          staff_rating: 'N/A',
+          wait_rating: 'N/A',
+          clean_rating: 'N/A',
+          comm_rating: 'N/A',
           would_recommend: 'N/A',
           ratings_summary: 'N/A',
-          submitted_at:    new Date().toLocaleString()
+          submitted_at: new Date().toLocaleString()
         };
 
         emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_FB, fbTemplateParams)
