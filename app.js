@@ -474,12 +474,18 @@
           office_name:      state.officeName,
           visit_date:       submission.visitDate,
           ratings_summary:  formattedRatings,
-          overall_rating:   state.ratings['overall'] || 'N/A',
-          staff_rating:     state.ratings['staff']   || 'N/A',
-          wait_rating:      state.ratings['wait']    || 'N/A',
-          clean_rating:     state.ratings['cleanliness'] || 'N/A',
+          overall_rating:   state.ratings['overall']       || 'N/A',
+          staff_rating:     state.ratings['staff']         || 'N/A',
+          wait_rating:      state.ratings['wait']          || 'N/A',
+          clean_rating:     state.ratings['cleanliness']   || 'N/A',
           comm_rating:      state.ratings['communication'] || 'N/A',
           would_recommend:  submission.wouldRecommend,
+          // Feedback fields not applicable for satisfaction survey
+          author_name:      'N/A',
+          answer_q1:        'N/A',
+          answer_q2:        'N/A',
+          answer_q3:        'N/A',
+          answer_q4:        'N/A',
           submitted_at:     new Date().toLocaleString()
         };
 
@@ -582,15 +588,24 @@
         setButtonLoading(submitBtn, true);
 
         const fbTemplateParams = {
-          to_email:     RECIPIENT_EMAIL,
-          office_name:  state.officeName,
-          author_name:  submission.authorName,
-          answer_q1:    answers['q1'] || 'No answer provided',
-          answer_q2:    answers['q2'] || 'No answer provided',
-          answer_q3:    answers['q3'] || 'No answer provided',
-          answer_q4:    answers['q4'] || 'No answer provided',
-          full_qa:      formattedQA,
-          submitted_at: new Date().toLocaleString()
+          to_email:        RECIPIENT_EMAIL,
+          office_name:     state.officeName,
+          author_name:     submission.authorName,
+          answer_q1:       answers['q1'] || 'No answer provided',
+          answer_q2:       answers['q2'] || 'No answer provided',
+          answer_q3:       answers['q3'] || 'No answer provided',
+          answer_q4:       answers['q4'] || 'No answer provided',
+          full_qa:         formattedQA,
+          // Satisfaction fields not applicable for feedback
+          visit_date:      'N/A',
+          overall_rating:  'N/A',
+          staff_rating:    'N/A',
+          wait_rating:     'N/A',
+          clean_rating:    'N/A',
+          comm_rating:     'N/A',
+          would_recommend: 'N/A',
+          ratings_summary: 'N/A',
+          submitted_at:    new Date().toLocaleString()
         };
 
         emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_FB, fbTemplateParams)

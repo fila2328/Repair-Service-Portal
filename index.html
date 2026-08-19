@@ -26,27 +26,27 @@
     <div class="accent-stripe"></div>
     <div class="welcome-content">
       <div class="welcome-card">
-        <div class="welcome-badge">Patient Services Portal</div>
+        <div class="welcome-badge">የጥገና አገልግሎት ማዘዣ ገጽ</div>
         <h1 class="welcome-title">Welcome.</h1>
         <p class="welcome-desc">
-          This portal lets you book appointments, rate your visit, and share feedback — all in one place.
+          ይህ ድህረ ገጽ ቀጠሮ ለማስያዝ፣ እርካታዎን ደረጃ ለመስጠት እና አስተያየትዎን ለማጋራት ያስችሎታል — በአንድ ቦታ።
         </p>
 
         <form id="welcome-form">
           <div class="form-group">
-            <label class="form-label" for="welcome-office-input">Office / Clinic Name</label>
-            <input type="text" id="welcome-office-input" class="form-input" placeholder="e.g. Sunrise Medical Center" />
-            <p id="welcome-error" class="error-text hidden">Please enter the office name to continue.</p>
+            <label class="form-label" for="welcome-office-input">የቢሮ ስም</label>
+            <input type="text" id="welcome-office-input" class="form-input" placeholder="ምሳሌ ፡ ሴፍትኔት" />
+            <p id="welcome-error" class="error-text hidden">እባክዎ የቢሮ ስም ያስገቡ ለመቀጠል</p>
           </div>
 
           <button type="submit" class="btn-primary">
-            Continue to Portal &rarr;
+            ቀጣይ &rarr;
           </button>
         </form>
 
         <div class="welcome-footer">
           <div class="footer-line"></div>
-          <span class="footer-text">Confidential</span>
+          <span class="footer-text">published by Filimon</span>
           <div class="footer-line"></div>
         </div>
       </div>
@@ -61,7 +61,7 @@
       <div class="accent-stripe"></div>
 
       <div class="sidebar-header">
-        <div class="sidebar-badge">Patient Services Portal</div>
+        <div class="sidebar-badge">የጥገና አገልግሎት ማዘዣ ገጽ</div>
         <div id="sidebar-office-name" class="sidebar-office-name">--</div>
       </div>
 
@@ -74,8 +74,8 @@
             </svg>
           </span>
           <div>
-            <div class="nav-label">Appointment</div>
-            <div class="nav-sub">Book a service</div>
+            <div class="nav-label">ቀጠሮ</div>
+            <div class="nav-sub">አገልግሎት ይጠይቁ</div>
           </div>
         </button>
 
@@ -87,8 +87,8 @@
             </svg>
           </span>
           <div>
-            <div class="nav-label">Satisfaction</div>
-            <div class="nav-sub">Rate your visit</div>
+            <div class="nav-label">እርካታ</div>
+            <div class="nav-sub">የአገልግሎቱን ደረጃ ይስጡ</div>
           </div>
         </button>
 
@@ -99,15 +99,15 @@
             </svg>
           </span>
           <div>
-            <div class="nav-label">Feedback</div>
-            <div class="nav-sub">Share thoughts</div>
+            <div class="nav-label"> አስተያየት</div>
+            <div class="nav-sub">ሃሳብዎን ያጋሩ</div>
           </div>
         </button>
       </nav>
 
       <div class="sidebar-footer">
-        <p class="sidebar-footer-text">Responses are sent securely to the office administrator.</p>
-        <button id="btn-open-admin" class="btn-admin-drawer">📊 View Local Submissions</button>
+        <p class="sidebar-footer-text">ለቢሮው አስተዳዳሪ ደህንነቱ በተጠበቀ መንገድ ይላካል።</p>
+        <button id="btn-open-admin" class="btn-admin-drawer">📊 አስተያየቶች</button>
       </div>
     </aside>
 
@@ -119,32 +119,32 @@
         <div class="portal-active-info">
           Portal active for: <strong id="header-office-name">--</strong>
         </div>
-        <button id="btn-change-office" class="btn-change-office">Change Office</button>
+        <button id="btn-change-office" class="btn-change-office">ቢሮውን ይቀይሩ</button>
       </header>
 
       <!-- VIEW 1: APPOINTMENT -->
       <section id="view-appointment" class="view-container">
         <div class="view-content">
           <div class="view-header">
-            <div class="view-step">Step 1 of 1</div>
-            <h2 class="view-title">Book an Appointment</h2>
-            <p class="view-subtitle">Select the services you need and your preferred timing. We will confirm your visit
-              details via email.</p>
+            <div class="view-step">1</div>
+            <h2 class="view-title">ቀጠሮ</h2>
+            <p class="view-subtitle">አስፈላጊውን አገልግሎት ይምረጡ እና የሚፈልጉትን ሰዓት ይግለጹ። ቀጠሮዎን በኢሜል እናረጋግጥልዎታለን።
+            </p>
           </div>
 
           <form id="appointment-form">
             <div class="form-group">
-              <label class="form-label" for="apt-patient-name">Your Name</label>
-              <input type="text" id="apt-patient-name" class="form-input" placeholder="Full name" />
+              <label class="form-label" for="apt-patient-name">ስምዎ</label>
+              <input type="text" id="apt-patient-name" class="form-input" placeholder="ስምዎን ያስገቡ" />
             </div>
 
             <div class="form-group grid-2">
               <div>
-                <label class="form-label" for="apt-pref-date">Preferred Date</label>
+                <label class="form-label" for="apt-pref-date">ቀጠሮ ቀን </label>
                 <input type="date" id="apt-pref-date" class="form-input" />
               </div>
               <div>
-                <label class="form-label" for="apt-pref-time">Preferred Time</label>
+                <label class="form-label" for="apt-pref-time">ቀጠሮ ሰዓት </label>
                 <input type="time" id="apt-pref-time" class="form-input" />
               </div>
             </div>
@@ -160,13 +160,13 @@
             </div>
 
             <div class="form-group">
-              <label class="form-label" for="apt-notes">Additional Notes</label>
+              <label class="form-label" for="apt-notes">ተጨማሪ ማስታወሻ</label>
               <textarea id="apt-notes" rows="3" class="form-textarea"
-                placeholder="Any symptoms, concerns, or special requests…"></textarea>
+                placeholder="ለበለጠ መረጃ የተበላሸቦትን ወይም እንዲገጠምሎት የሚፈልጉትን ነገር ይጻፉ  "></textarea>
             </div>
 
             <button type="submit" id="btn-submit-appointment" class="btn-primary" disabled>
-              Send Appointment Request &rarr;
+              ቀጠሮ ለመላክ
             </button>
           </form>
         </div>
@@ -176,20 +176,20 @@
       <section id="view-satisfaction" class="view-container hidden">
         <div class="view-content">
           <div class="view-header">
-            <div class="view-step">Patient Feedback</div>
-            <h2 class="view-title">Rate Your Visit</h2>
-            <p class="view-subtitle">Your ratings help us maintain high standards. Select a level for each aspect.</p>
+            <div class="view-step">የተጠቃሚ አስተያየት</div>
+            <h2 class="view-title">የአገልግሎት ደረጃዎን ይስጡ</h2>
+            <p class="view-subtitle">የእርካታ ደረጃዎን በመግለጽ ለተሻለ አገልግሎት ያግዙን።</p>
           </div>
 
           <form id="satisfaction-form">
             <div class="form-group">
-              <label class="form-label" for="sat-visit-date">Date of Visit</label>
+              <label class="form-label" for="sat-visit-date">የቀጠሮ ቀን</label>
               <input type="date" id="sat-visit-date" class="form-input" />
             </div>
 
             <div class="form-group">
               <label class="form-label">
-                Satisfaction Levels <span style="color:var(--color-teal);">*</span>
+                የአገልግሎት ደረጃዎትን ይግለጹ <span style="color:var(--color-teal);">*</span>
               </label>
               <div id="satisfaction-ratings-container">
                 <!-- Injected via app.js -->
@@ -197,16 +197,16 @@
             </div>
 
             <div class="form-group">
-              <label class="form-label">Would you recommend us to others?</label>
+              <label class="form-label">ለሌሎች ይህ አገልግሎት ይመክራሉ?</label>
               <div id="recommend-options-container" class="radio-options-row">
                 <!-- Injected via app.js -->
               </div>
             </div>
 
             <button type="submit" id="btn-submit-satisfaction" class="btn-primary" disabled>
-              Submit Satisfaction Survey &rarr;
+              አስተያየቴን ለመላክ
             </button>
-            <p class="form-hint">Please rate all aspects before submitting.</p>
+            <p class="form-hint">እባክዎን አስተያየት ከመስጠትዎ በፊት ሁሉንም ገጽታዎች ደረጃ ይስጡ።</p>
           </form>
         </div>
       </section>
